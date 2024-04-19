@@ -1,0 +1,36 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+plt.rcParams.update({
+    "text.usetex": True,
+    "font.family": "serif",
+    "font.serif": ["Computer Modern Roman"]
+})
+
+# Generate meshgrid for x and y
+x = np.linspace(-5, 5, 100)
+y = np.linspace(0, 10, 100)
+X, Y = np.meshgrid(x, y)
+
+# Calculate n for each point on the meshgrid
+N = np.sqrt(1 + Y)
+
+# Create a 3D plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot the surface
+surf = ax.plot_surface(X, Y, N, cmap='viridis')
+
+# Set labels and title
+ax.set_xlabel(r'$x$')
+ax.set_ylabel(r'$y$')
+ax.set_zlabel(r'$n(x,y)$')
+ax.set_title(r'Índice de refracción $n = \sqrt{1 + y}$')
+
+# Add a color bar
+fig.colorbar(surf, shrink=0.5, aspect=5)
+
+# Show the plot
+plt.show()
