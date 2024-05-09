@@ -12,15 +12,16 @@ class AnimateMatrixA(LinearTransformationScene):
         vector_value = [1/3 + (34**0.5)/3, 1]
         vec = self.get_vector(vector_value, color=PURPLE_B, tip_length=0.2)  # Set tip_length to a fixed value
         vec_label = MathTex(r"\left[\begin{matrix} \frac{1}{3} + \frac{\sqrt{34}}{3} \\ 1 \end{matrix}\right]").next_to(vec, UP)
-
-        rect1 = Rectangle(height=2, width=1, stroke_color=BLUE_A, fill_color=BLUE_D,
-                          fill_opacity=0.6).shift(UP*2 + LEFT*2)
         
-        circ1 = Circle(radius=1, stroke_color=BLUE_A, fill_color=BLUE_D, fill_opacity=0.6).shift(DOWN*2 + RIGHT*1)
-
-        self.add_transformable_mobject(vec, rect1, circ1)
+        # Add vec_label as a submobject of vec
+        vec.add(vec_label)
+        
+        self.add_transformable_mobject(vec)
         self.add_foreground_mobject(matrix_tex)
-        self.add_foreground_mobject(vec_label)  # Add vec_label to foreground
-        self.apply_matrix(matrix)
 
+        # Detach vec_label from vec before applying transformation
+        vec.remove(vec_label)
+        self.add_foreground_mobject(vec_label)
+
+        self.apply_matrix(matrix)
         self.wait()
