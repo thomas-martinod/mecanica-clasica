@@ -17,11 +17,8 @@ class AnimateMatrixA(LinearTransformationScene):
         vec.add(vec_label)
         
         self.add_transformable_mobject(vec)
+        self.add_moving_mobject(vec_label)
         self.add_foreground_mobject(matrix_tex)
-
-        # Detach vec_label from vec before applying transformation
-        vec.remove(vec_label)
-        self.add_foreground_mobject(vec_label)
 
         self.apply_matrix(matrix)
         self.wait()
