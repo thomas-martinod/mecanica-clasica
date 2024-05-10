@@ -1,24 +1,84 @@
 from manim import *
 
 class AnimateMatrixA(LinearTransformationScene):
-    def __init__(self):
-        LinearTransformationScene.__init__(self, show_coordinates=True, leave_ghost_vectors=True,
-                                           show_basis_vectors=True)
-    
+    def __init__(self, **kwargs):
+        LinearTransformationScene.__init__(
+            self,
+            show_coordinates=True,
+            leave_ghost_vectors=True,
+            **kwargs
+        )
+
     def construct(self):
-        matrix = [[-2, 1],[1, 2]]
-        matrix_tex = MathTex("A = \\begin{bmatrix} -2 & 1 \\\\ 1 & 2 \\end{bmatrix}").to_edge(UL).add_background_rectangle()
+        A = [[-2, 1],[1, 2]]
+        A_tex = MathTex('A = \\left[\\begin{matrix}1 & -2\\\\-2 & -1\\end{matrix}\\right]').to_edge(UL).add_background_rectangle()
+        v1_tex = MathTex('\\mathbf{v}_1 = \\left[\\begin{matrix}-1 + \\frac{\\sqrt{6}}{2}\\\\1\\end{matrix}\\right]', color = YELLOW).to_edge(UR).add_background_rectangle()
+        v2_tex = MathTex('\\mathbf{v}_2 = \\left[\\begin{matrix}- \\frac{\\sqrt{6}}{2} - 1\\\\1\\end{matrix}\\right]', color = PURPLE_C).next_to(v1_tex, DOWN).add_background_rectangle()
 
-        vector_value = [1/3 + (34**0.5)/3, 1]
-        vec = self.get_vector(vector_value, color=PURPLE_B, tip_length=0.2)  # Set tip_length to a fixed value
-        vec_label = MathTex(r"\left[\begin{matrix} \frac{1}{3} + \frac{\sqrt{34}}{3} \\ 1 \end{matrix}\right]").next_to(vec, UP)
-        
-        # Add vec_label as a submobject of vec
-        vec.add(vec_label)
-        
-        self.add_transformable_mobject(vec)
-        self.add_moving_mobject(vec_label)
-        self.add_foreground_mobject(matrix_tex)
+        v1 = [0.224744871391589, 1]
+        v2 = [-2.22474487139159, 1]
 
-        self.apply_matrix(matrix)
+        vec1 = self.get_vector(v1, color=YELLOW, tip_length = 0.2)
+        vec2 = self.get_vector(v2, color=PURPLE_C, tip_length = 0.2)
+
+        self.add_transformable_mobject(vec1, vec2)
+        self.add_foreground_mobject(A_tex, v1_tex, v2_tex)
+        self.apply_matrix(A)
+
+        self.wait()
+
+
+class AnimateMatrixB(LinearTransformationScene):
+    def __init__(self, **kwargs):
+        LinearTransformationScene.__init__(
+            self,
+            show_coordinates=True,
+            leave_ghost_vectors=True,
+            **kwargs
+        )
+
+    def construct(self):
+        B = [[-0.5, -2],[-1, -1.5]]
+        B_tex = MathTex('B = \\left[\\begin{matrix}- \\frac{1}{2} & -2\\\\-1 & - \\frac{3}{2}\\end{matrix}\\right]').to_edge(UL).add_background_rectangle()
+        v1_tex = MathTex('\\mathbf{v}_1 = \\left[\\begin{matrix}-1 \\\\1\\end{matrix}\\right]', color = YELLOW).to_edge(UR).add_background_rectangle()
+        v2_tex = MathTex('\\mathbf{v}_2 = \\left[\\begin{matrix}1 \\\\1\\end{matrix}\\right]', color = PURPLE_C).next_to(v1_tex, DOWN).add_background_rectangle()
+
+        v1 = [0.224744871391589, 1]
+        v2 = [-2.22474487139159, 1]
+        
+        vec1 = self.get_vector(v1, color=YELLOW, tip_length = 0.2)
+        vec2 = self.get_vector(v2, color=PURPLE_C, tip_length = 0.2)
+
+        self.add_transformable_mobject(vec1, vec2)
+        self.add_foreground_mobject(B_tex, v1_tex, v2_tex)
+        self.apply_matrix(B)
+
+        self.wait()
+
+
+class AnimateMatrixBinvA(LinearTransformationScene):
+    def __init__(self, **kwargs):
+        LinearTransformationScene.__init__(
+            self,
+            show_coordinates=True,
+            leave_ghost_vectors=True,
+            **kwargs
+        )
+
+    def construct(self):
+        H = [[-0.5, -2],[-1, -1.5]]
+        B_tex = MathTex('B = \\left[\\begin{matrix}- \\frac{1}{2} & -2\\\\-1 & - \\frac{3}{2}\\end{matrix}\\right]').to_edge(UL).add_background_rectangle()
+        v1_tex = MathTex('\\mathbf{v}_1 = \\left[\\begin{matrix}-1 \\\\1\\end{matrix}\\right]', color = YELLOW).to_edge(UR).add_background_rectangle()
+        v2_tex = MathTex('\\mathbf{v}_2 = \\left[\\begin{matrix}1 \\\\1\\end{matrix}\\right]', color = PURPLE_C).next_to(v1_tex, DOWN).add_background_rectangle()
+
+        v1 = [0.224744871391589, 1]
+        v2 = [-2.22474487139159, 1]
+        
+        vec1 = self.get_vector(v1, color=YELLOW, tip_length = 0.2)
+        vec2 = self.get_vector(v2, color=PURPLE_C, tip_length = 0.2)
+
+        self.add_transformable_mobject(vec1, vec2)
+        self.add_foreground_mobject(B_tex, v1_tex, v2_tex)
+        self.apply_matrix(H)
+
         self.wait()
